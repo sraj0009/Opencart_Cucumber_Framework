@@ -1,4 +1,5 @@
 package hooks;
+import ssl.*;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -27,7 +28,14 @@ public class Hooks {
     	p=BaseClass.getProperties();
     	driver.get(p.getProperty("appURL"));
     	driver.manage().window().maximize();
-    			
+    	
+    	try {		
+        SSLBypass.disableSSLVerification();
+        System.out.println("SSL verification has been disabled.");
+	}catch (Exception e) {
+        e.printStackTrace();
+        throw new RuntimeException("Failed to disable SSL verification.");
+    		}    			
 	}
 		
     
